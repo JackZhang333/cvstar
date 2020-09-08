@@ -1,0 +1,45 @@
+let menus = [
+    {
+        userId:"13d60d26-47b5-4232-8955-772ce56f0f9f",
+        name:'水和饮料'
+    },
+    {
+        userId:"13d60d26-47b5-4232-8955-772ce56f0f9f",
+        name:'方便速食'
+    },
+    {
+        userId:"13d60d26-47b5-4232-8955-772ce56f0f9f",
+        name:'牛奶乳品'
+    },
+    {
+        userId:"13d60d26-47b5-4232-8955-772ce56f0f9f",
+        name:'膨化食品'
+    },
+    {
+        userId:"13d60d26-47b5-4232-8955-772ce56f0f9f",
+        name:'休闲小食'
+    },
+    {
+        userId:"13d60d26-47b5-4232-8955-772ce56f0f9f",
+        name:'米面粮油'
+    },
+    {
+        userId:"13d60d26-47b5-4232-8955-772ce56f0f9f",
+        name:'厨房调味'
+    },
+    {
+        userId:"13d60d26-47b5-4232-8955-772ce56f0f9f",
+        name:'个人清洁'
+    },
+    {
+        userId:"13d60d26-47b5-4232-8955-772ce56f0f9f",
+        name:'日杂百货'
+    },
+    {
+        userId:"13d60d26-47b5-4232-8955-772ce56f0f9f",
+        name:'蔬菜瓜果'
+    },
+    ]
+// let menus = ['水和饮料','牛奶乳品','膨化食品','休闲小食','米面粮油','方便速食','厨房调味','个人清洁','日杂百货','其他分类']
+const Menu = require('../services/menus')
+menus.forEach(v=>Menu.addMenu(v))
