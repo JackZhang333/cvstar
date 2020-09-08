@@ -1,5 +1,5 @@
 const User = require('../services/users')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 const register = async(ctx,next)=>{
     const data = ctx.request.body
