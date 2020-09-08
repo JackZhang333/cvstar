@@ -1,5 +1,5 @@
 const User = require('../services/users')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const editStoreName = async (ctx, next) => {
     let data = ctx.request.body
     // console.log(data)
