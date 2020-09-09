@@ -51,7 +51,7 @@ const addProduct = async (ctx, next) => {
     const databaseData = uploadProduct(ctx, data)
     console.log('新增商品时pic：'+databaseData.pic)
     const backData = await products.addProduct(databaseData)
-    console.log('新增后返回给客户端的商品',backData)
+    // console.log('新增后返回给客户端的商品',backData)
     ctx.rest({
         code:1,
         msg:'新增商品成功',
