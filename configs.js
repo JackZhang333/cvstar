@@ -1,7 +1,7 @@
 let configs = {
     database: 'cvstar',
-    username :'jack',
-    password :'301470',
+    username :'xiaoshan',
+    password :'admin',
     host : 'localhost',
     port :'3306'
 }
