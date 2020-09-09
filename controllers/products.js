@@ -1,6 +1,8 @@
 const products = require('../services/products')
 const fs = require('fs')
 const path = require('path')
+//配置的图片上传地址，区别开发和生产环境
+const env =require('../env')
 const getProducts = async (ctx, next) => {
     const {userId} = ctx.request.query
     const data = await products.getProducts(userId)
@@ -30,7 +32,7 @@ const uploadProduct = function (ctx, data) {
     const picName = data.barCode
     const imgPath = rpath + '/public/' + picName + '.jpeg'
     //把假的图片地址存到数据库，生产环境需要把图片上传到文件服务器，在返回地址给数据库
-    const picPath = 'http://121.196.189.48:3000/public/' + picName + '.jpeg'
+    const picPath = env + picName + '.jpeg'
 
     //接受传递过来的base64字符串
     const imgData = data.pic
