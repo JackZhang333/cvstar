@@ -11,7 +11,7 @@ module.exports.getProducts = async (userId)=>{
 }
 //增加一个商品
 module.exports.addProduct = async (data)=>{
-  let p = await product.create(data)
+  return await product.create(data)
 }
 //删除商品信息
 module.exports.removeProduct = async(id)=>{
