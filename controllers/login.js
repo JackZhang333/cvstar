@@ -5,8 +5,8 @@ const toLogin = async (ctx, next) => {
     let { request, response } = ctx
     //从客户端拿到数据
     let { name, password, verifyImage } = request.query
-    console.log(name, password, verifyImage)
-    console.log(request.query)
+    // console.log(name, password, verifyImage)
+    // console.log(request.query)
     let data = {}
     //从session中拿到之前穿过去的imageCode,与verifyImage对比
     const imageVerified = ctx.session.imageCode == verifyImage.toLocaleUpperCase()
@@ -47,7 +47,7 @@ const svgCaptcha = require('svg-captcha')
 const toVerifyImage = async (ctx, next) => {
     //生产对象
     const captcha = svgCaptcha.create({
-        size: 6,
+        size: 4,
         noise: 3,
         background: '#108cee',
         width: 120,
