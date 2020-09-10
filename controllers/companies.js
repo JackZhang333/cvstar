@@ -9,8 +9,9 @@ const getCompanies = async (ctx,next)=>{
 }
 const addCompany = async(ctx,next)=>{
     let data = ctx.request.body
-    await Company.addCompany(data)
-    ctx.rest({code:1,msg:'新增供应商成功'})
+    //拿到数据库中的对象
+    const backData = await Company.addCompany(data)
+    ctx.rest({code:1,msg:'新增供应商成功',backData})
     await next()
 }
 const removeCompay = async(ctx,next)=>{

@@ -8,8 +8,9 @@ module.exports.getCompanies = async(userId)=>{
     })
 }
 module.exports.addCompany = async(data)=>{
-    const c= await company.create(data)
-    console.log('新增供应商成功'+c)
+    //新增后返回给客户端
+    return await company.create(data)
+    // console.log('新增供应商成功'+c)
 }
 module.exports.removeCompany = async(id)=>{
     const c = await company.destroy({
