@@ -64,7 +64,7 @@ const toVerifyImage = async (ctx, next) => {
         fontSize: 50,
     })
     //拿到文本值存入session
-    // ctx.session.imageCode = captcha.text.toLocaleUpperCase() 
+    ctx.session.imageCode = captcha.text.toLocaleUpperCase() 
     //尝试使用cookies的方式
     // ctx.cookies.set('imageCode',captcha.text.toLocaleUpperCase(),{httpOnly:true})
     //把svg格式的数据返回给客户端
