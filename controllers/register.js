@@ -6,6 +6,8 @@ const register = async (ctx, next) => {
 
     //从session中拿到之前穿过去的imageCode,与verifyImage对比
     const imageVerified = ctx.session.imageCode == verifyImage.toLocaleUpperCase()
+    //尝试使用cookie的方式，session取不到值
+    // const imageVerified = ctx.cookies.get('imageCode') == verifyImage.toLocaleUpperCase()
 
 
     if (imageVerified) {

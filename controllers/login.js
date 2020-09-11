@@ -8,18 +8,18 @@ const toLogin = async (ctx, next) => {
     // console.log(name, password, verifyImage)
     // console.log(request.query)
     let data = {}
-    // let  imageVerified
-    // //从session中拿到之前穿过去的imageCode,与verifyImage对比
-    // if(ctx.session.imageCode){
-    //     //云端不知为什么取不到imageCode
-    //     imageVerified= ctx.session.imageCode == verifyImage.toLocaleUpperCase()
-    // }else {
-    //     imageVerified =true
-    // }
+    let  imageVerified
+    //从session中拿到之前穿过去的imageCode,与verifyImage对比
+    if(ctx.session.imageCode){
+        //云端不知为什么取不到imageCode
+        imageVerified= ctx.session.imageCode == verifyImage.toLocaleUpperCase()
+    }else {
+        imageVerified =true
+    }
     
     //尝试使用cookies的方式
-    const imageVerified = ctx.cookies.get('imageCode') == verifyImage.toLocaleUpperCase()
-    console.log('从客户端读到的cookies:',ctx.cookies)
+    // const imageVerified = ctx.cookies.get('imageCode') == verifyImage.toLocaleUpperCase()
+    // console.log('从客户端读到的cookies:',ctx.cookies)
     //校验数据并返回不同的结果
     const userInfos = await User.getUser(name)
     let isRight = false
