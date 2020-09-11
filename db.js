@@ -7,6 +7,7 @@ function generateId(){
 
 let {database,username,password,host,port}= require('./configs')
 let seq = new Sequelize(database,username,password,{
+logging:false,
     host:host,
     dialect:'mysql',
     pool:{

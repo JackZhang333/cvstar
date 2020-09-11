@@ -64,6 +64,11 @@ const toVerifyImage = async (ctx, next) => {
 
 }
 module.exports = {
+<<<<<<< HEAD
+    'GET /api/login':toLogin
+}
+=======
     'GET /api/login': toLogin,
     'GET /api/login/verify_image':toVerifyImage,
 }
+>>>>>>> 80eb3fb8cc168a8a7a5878de742d7ad690a4120b
