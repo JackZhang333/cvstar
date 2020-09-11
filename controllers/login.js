@@ -19,6 +19,7 @@ const toLogin = async (ctx, next) => {
     
     //尝试使用cookies的方式
     const imageVerified = ctx.cookies.get('imageCode') == verifyImage.toLocaleUpperCase()
+    console.log('从客户端读到的cookies:',ctx.cookies.get('imageCode'))
     //校验数据并返回不同的结果
     const userInfos = await User.getUser(name)
     let isRight = false
