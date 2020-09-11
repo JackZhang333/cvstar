@@ -12,7 +12,6 @@ const toLogin = async (ctx, next) => {
     // const imageVerified = ctx.session.imageCode == verifyImage.toLocaleUpperCase()
     //尝试使用cookies的方式
     const imageVerified = ctx.cookies.get('imageCode') == verifyImage.toLocaleUpperCase()
-
     //校验数据并返回不同的结果
     const userInfos = await User.getUser(name)
     let isRight = false
@@ -68,6 +67,7 @@ const toVerifyImage = async (ctx, next) => {
 
 }
 module.exports = {
+
     'GET /api/login': toLogin,
     'GET /api/login/verify_image':toVerifyImage,
 }
