@@ -9,7 +9,14 @@ const toLogin = async (ctx, next) => {
     // console.log(request.query)
     let data = {}
     //从session中拿到之前穿过去的imageCode,与verifyImage对比
+<<<<<<< HEAD
     const imageVerified = ctx.session.imageCode == verifyImage.toLocaleUpperCase()
+=======
+    // const imageVerified = ctx.session.imageCode == verifyImage.toLocaleUpperCase()
+    //尝试使用cookies的方式
+    const imageVerified = ctx.cookies.get('imageCode') == verifyImage.toLocaleUpperCase()
+
+>>>>>>> 07506b41a42f2838f60cee6bf04b9190aecf4f6b
     //校验数据并返回不同的结果
     const userInfos = await User.getUser(name)
     let isRight = false
@@ -54,7 +61,9 @@ const toVerifyImage = async (ctx, next) => {
         fontSize: 50,
     })
     //拿到文本值存入session
-    ctx.session.imageCode = captcha.text.toLocaleUpperCase()
+    // ctx.session.imageCode = captcha.text.toLocaleUpperCase()
+    //尝试使用cookies的方式
+    ctx.cookies.set('imageCode',captcha.text.toLocaleUpperCase(),{httpOnly:true})
     //把svg格式的数据返回给客户端
     ctx.response.type = "image/svg+xml"
     ctx.response.body = captcha.data
@@ -63,7 +72,10 @@ const toVerifyImage = async (ctx, next) => {
 
 }
 module.exports = {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 07506b41a42f2838f60cee6bf04b9190aecf4f6b
     'GET /api/login': toLogin,
     'GET /api/login/verify_image':toVerifyImage,
 }
