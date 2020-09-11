@@ -1,2 +1,2 @@
-const env = 'http://121.196.189.48:3000/public/'
+const env = 'http://localhost/public/'
 module.exports = env
