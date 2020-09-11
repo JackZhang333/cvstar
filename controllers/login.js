@@ -9,7 +9,12 @@ const toLogin = async (ctx, next) => {
     // console.log(request.query)
     let data = {}
     //从session中拿到之前穿过去的imageCode,与verifyImage对比
-    const imageVerified = ctx.session.imageCode == verifyImage.toLocaleUpperCase()
+    if(ctx.session.imageCode){
+        let  imageVerified = ctx.session.imageCode == verifyImage.toLocaleUpperCase()
+    }else {
+        imageVerified =true
+    }
+    
     //尝试使用cookies的方式
     // const imageVerified = ctx.cookies.get('imageCode') == verifyImage.toLocaleUpperCase()
     //校验数据并返回不同的结果
