@@ -10,7 +10,6 @@ const toLogin = async (ctx, next) => {
     let data = {}
     //从session中拿到之前穿过去的imageCode,与verifyImage对比
     const imageVerified = ctx.session.imageCode == verifyImage.toLocaleUpperCase()
-
     //校验数据并返回不同的结果
     const userInfos = await User.getUser(name)
     let isRight = false
@@ -64,11 +63,7 @@ const toVerifyImage = async (ctx, next) => {
 
 }
 module.exports = {
-<<<<<<< HEAD
-    'GET /api/login':toLogin
-}
-=======
+
     'GET /api/login': toLogin,
     'GET /api/login/verify_image':toVerifyImage,
 }
->>>>>>> 80eb3fb8cc168a8a7a5878de742d7ad690a4120b
