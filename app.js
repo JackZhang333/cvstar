@@ -19,6 +19,7 @@ const CONFIG = {
     signed: true,
     rolling: false,
     renew: false,
+    sameSite:true,
 }
 app.use(session(CONFIG, app));
 // 设置一个请求预处理中间件

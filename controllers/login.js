@@ -8,9 +8,11 @@ const toLogin = async (ctx, next) => {
     // console.log(name, password, verifyImage)
     // console.log(request.query)
     let data = {}
+    let  imageVerified
     //从session中拿到之前穿过去的imageCode,与verifyImage对比
     if(ctx.session.imageCode){
-        let  imageVerified = ctx.session.imageCode == verifyImage.toLocaleUpperCase()
+        //云端不知为什么取不到imageCode
+        imageVerified= ctx.session.imageCode == verifyImage.toLocaleUpperCase()
     }else {
         imageVerified =true
     }
