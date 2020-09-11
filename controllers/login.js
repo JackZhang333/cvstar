@@ -9,7 +9,9 @@ const toLogin = async (ctx, next) => {
     // console.log(request.query)
     let data = {}
     //从session中拿到之前穿过去的imageCode,与verifyImage对比
-    const imageVerified = ctx.session.imageCode == verifyImage.toLocaleUpperCase()
+    // const imageVerified = ctx.session.imageCode == verifyImage.toLocaleUpperCase()
+    //尝试使用cookies的方式
+    const imageVerified = ctx.cookies.get('imageCode') == verifyImage.toLocaleUpperCase()
 
     //校验数据并返回不同的结果
     const userInfos = await User.getUser(name)
@@ -55,7 +57,9 @@ const toVerifyImage = async (ctx, next) => {
         fontSize: 50,
     })
     //拿到文本值存入session
-    ctx.session.imageCode = captcha.text.toLocaleUpperCase()
+    // ctx.session.imageCode = captcha.text.toLocaleUpperCase()
+    //尝试使用cookies的方式
+    ctx.cookies.set('imageCode',captcha.text.toLocaleUpperCase(),{httpOnly:true})
     //把svg格式的数据返回给客户端
     ctx.response.type = "image/svg+xml"
     ctx.response.body = captcha.data
@@ -64,11 +68,6 @@ const toVerifyImage = async (ctx, next) => {
 
 }
 module.exports = {
-<<<<<<< HEAD
-    'GET /api/login':toLogin
-}
-=======
     'GET /api/login': toLogin,
     'GET /api/login/verify_image':toVerifyImage,
 }
->>>>>>> 80eb3fb8cc168a8a7a5878de742d7ad690a4120b
