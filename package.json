@@ -11,13 +11,21 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
+<<<<<<< HEAD
     "bcrypt": "^5.0.0",
+=======
+>>>>>>> 80eb3fb8cc168a8a7a5878de742d7ad690a4120b
     "bcryptjs": "^2.4.3",
     "koa": "^2.11.0",
     "koa-body": "^4.1.1",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^8.0.8",
+<<<<<<< HEAD
     "mime": "^2.4.6",
+=======
+    "koa-session": "^6.0.0",
+    "mime": "^2.4.5",
+>>>>>>> 80eb3fb8cc168a8a7a5878de742d7ad690a4120b
     "mysql2": "^2.1.0",
     "mz": "^2.7.0",
 <<<<<<< HEAD
@@ -25,7 +33,11 @@
     "uuid": "^8.3.0"
 =======
     "sequelize": "^5.21.7",
+<<<<<<< HEAD
     "bcrypt": "^5.0.0"
 >>>>>>> a1b90cfe6f4fd556fa83ca1814ce60f653709282
+=======
+    "svg-captcha": "^1.4.0"
+>>>>>>> 80eb3fb8cc168a8a7a5878de742d7ad690a4120b
   }
 }

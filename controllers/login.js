@@ -4,26 +4,35 @@ const User = require('../services/users')
 const toLogin = async (ctx, next) => {
     let { request, response } = ctx
     //从客户端拿到数据
-    let { name, password } = request.query
-    console.log(request.query)
+    let { name, password, verifyImage } = request.query
+    // console.log(name, password, verifyImage)
+    // console.log(request.query)
     let data = {}
+    //从session中拿到之前穿过去的imageCode,与verifyImage对比
+    const imageVerified = ctx.session.imageCode == verifyImage.toLocaleUpperCase()
+
     //校验数据并返回不同的结果
-    const userInfos= await User.getUser(name)
+    const userInfos = await User.getUser(name)
     let isRight = false
-    if(userInfos){
-         isRight = bcrypt.compareSync(password,userInfos.password)
+    if (userInfos) {
+        isRight = bcrypt.compareSync(password, userInfos.password)
     }
-   
-    if (isRight) {
-    
+
+    if (isRight && imageVerified) {
+
         data = {
             code: 200,
             msg: '恭喜你，登录成功！',
-            token:userInfos.id,
-            userInfos:userInfos
+            token: userInfos.id,
+            userInfos: userInfos
 
         }
-    } else {
+    } else if (!imageVerified) {
+        data = {
+            code: -1,
+            msg: '图片验证码错误'
+        }
+    } else if (!isRight) {
         data = {
             code: -1,
             msg: '用户名或密码错误'
@@ -32,6 +41,34 @@ const toLogin = async (ctx, next) => {
     ctx.rest(data)
     await next()
 }
+//新增一个接口给图片验证码使用
+const svgCaptcha = require('svg-captcha')
+
+const toVerifyImage = async (ctx, next) => {
+    //生产对象
+    const captcha = svgCaptcha.create({
+        size: 4,
+        noise: 3,
+        background: '#108cee',
+        width: 120,
+        height: 40,
+        fontSize: 50,
+    })
+    //拿到文本值存入session
+    ctx.session.imageCode = captcha.text.toLocaleUpperCase()
+    //把svg格式的数据返回给客户端
+    ctx.response.type = "image/svg+xml"
+    ctx.response.body = captcha.data
+
+    await next()
+
+}
 module.exports = {
+<<<<<<< HEAD
     'GET /api/login':toLogin
 }
+=======
+    'GET /api/login': toLogin,
+    'GET /api/login/verify_image':toVerifyImage,
+}
+>>>>>>> 80eb3fb8cc168a8a7a5878de742d7ad690a4120b

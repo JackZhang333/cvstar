@@ -5,12 +5,28 @@ var app = new Koa()
 const static  = require('./static')
 const rest = require('./rest')
 const routes = require('./controller')
+
+//使用session校验图片
+
+const session = require('koa-session')
+app.keys = ['powerfull cvstar'];
+
+const CONFIG = {
+    key:'powerfull cvstar',
+    maxAge: 86400000,
+    overwrite: true,
+    httpOnly: true,
+    signed: true,
+    rolling: false,
+    renew: false,
+}
+app.use(session(CONFIG, app));
 // 设置一个请求预处理中间件
 app.use(async(ctx,next)=>{
     let {request,response} = ctx
     
     if(/^\/api/.test(request.path)){
-        if(request.path == '/api/login/'||request.path == '/api/register'||request.header.token){
+        if(request.path.startsWith('/api/login/')||request.path.startsWith('/api/register')||request.header.token){
             // console.log(request.path)
             await next()
         }else {
