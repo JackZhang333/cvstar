@@ -18,7 +18,7 @@ const uploadProduct = function (ctx, data) {
         //过滤掉data:url
         const base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
         //转换为buffer
-        const dataBuffer = new Buffer.alloc(5000,base64Data, 'base64')
+        const dataBuffer = new Buffer.alloc(50000,base64Data, 'base64')
         //拼接图片地址
         //储存到服务器并，把地址写到数据库
         fs.writeFile(imgPath, dataBuffer, (err) => {
