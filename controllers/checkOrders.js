@@ -1,5 +1,16 @@
 const checkOrders = require('../services/checkOrders')
 const Product = require('../services/products')
+const User = require('../services/users')
+
+//获取所有的用户订单（管理系统）
+const getAllCheckOrders = async(ctx,next) => {
+    let users = await User.getUsers()
+    let allOrders = await Promise.all(users.map(async(item)=>{
+        return await checkOrders.getCheckOrders(item.id,item.userName)
+    }))
+    ctx.rest(allOrders)
+    await next()
+}
 
 const getOrders = async(ctx,next)=>{
     let {userId} = ctx.request.query
@@ -26,4 +37,5 @@ const addOrder = async(ctx,next)=>{
 module.exports = {
     'GET /api/checkOrders':getOrders,
     'POST /api/addOrder':addOrder,
+    'GET /api/getAllCheckOrders':getAllCheckOrders,
 }

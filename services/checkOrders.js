@@ -1,6 +1,7 @@
 const {checkOrder,checkProducts} = require('../model')
 
-module.exports.getCheckOrders = async(userId)=>{
+
+module.exports.getCheckOrders = async(userId,userName)=>{
     const orders = await checkOrder.findAll(
         {
             order:[['orderCode','DESC']],
@@ -18,7 +19,13 @@ module.exports.getCheckOrders = async(userId)=>{
             }
         })
         // console.log(products)
+        if(userName){
+
+        return {...v.dataValues,products,userName}
+        }else {
         return {...v.dataValues,products}
+
+        }
     }))
     // console.log(result)
     return result
