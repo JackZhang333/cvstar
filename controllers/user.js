@@ -1,5 +1,19 @@
 const User = require('../services/users')
 const bcrypt = require('bcryptjs')
+
+//修改用户状态的接口
+const modifyUserStatus = async (ctx,next) => {
+    let data = ctx.request.body
+    await User.modifyUserStatus(data)
+    ctx.rest({code:1,msg:'修改状态成功'})
+    await next()
+}
+//获取所有用户信息的接口
+const getUsers = async (ctx,next) => {
+    let results = await User.getUsers()
+    ctx.rest(results)
+    await next()
+}
 const editStoreName = async (ctx, next) => {
     let data = ctx.request.body
     // console.log(data)
@@ -37,4 +51,6 @@ const editPassword = async (ctx, next) => {
 module.exports = {
     'POST /api/editStoreName': editStoreName,
     'POST /api/editPassword': editPassword,
+    'GET /api/getUsers':getUsers,
+    'POST /api/modifyUserStatus':modifyUserStatus,
 }

@@ -1,5 +1,21 @@
 const {user} = require('../model')
 
+//改变用户的状态
+module.exports.modifyUserStatus = async({userName,status})=>{
+    await user.update({status},{
+        where:{
+            userName
+        }
+    })
+    console.log('修改用户状态成功！')
+}
+//获取所有的用户数据
+module.exports.getUsers = async ()=>{
+    const users = await user.findAll({
+      order:[['createdAt','DESC']],
+    })
+    return users
+  }
 module.exports.register = async(data)=>{
     //检测是否已经注册过了
     const hasOne = await user.findOne({
