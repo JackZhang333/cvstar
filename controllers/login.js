@@ -23,8 +23,8 @@ const staffLogin = async(ctx,next)=>{
         data = {
             code: 200,
             msg: '恭喜你，登录成功！',
-            token: userInfos.id,
-            userInfos: userInfos
+            token: staffInfos.id,
+            staffInfos: staffInfos
 
         }
     } else if (!imageVerified) {

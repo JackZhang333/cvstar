@@ -26,10 +26,11 @@ app.use(async(ctx,next)=>{
     let {request,response} = ctx
     
     if(/^\/api/.test(request.path)){
-        if(request.path.startsWith('/api/login/')||request.path.startsWith('/api/register')||request.header.token){
+        if(request.path.startsWith('/api/staffLogin')||request.path.startsWith('/api/login/')||request.path.startsWith('/api/register')||request.header.token){
             // console.log(request.path)
             await next()
         }else {
+            // console.log(request.path)
             response.status = 401
         }
     }else if(/^\/public/.test(request.path)){
