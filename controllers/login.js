@@ -42,7 +42,7 @@ const staffLogin = async(ctx,next)=>{
     await next()
 
 }
-
+//普通用户登录
 const toLogin = async (ctx, next) => {
     let { request, response } = ctx
     //从客户端拿到数据
@@ -65,11 +65,14 @@ const toLogin = async (ctx, next) => {
     //校验数据并返回不同的结果
     const userInfos = await User.getUser(name)
     let isRight = false
+    let status = false
     if (userInfos) {
         isRight = bcrypt.compareSync(password, userInfos.password)
+        //校验用户当前的可用状态
+        status = userInfos.status;
     }
 
-    if (isRight && imageVerified) {
+    if (isRight && status && imageVerified) {
 
         data = {
             code: 200,
@@ -87,6 +90,11 @@ const toLogin = async (ctx, next) => {
         data = {
             code: -1,
             msg: '用户名或密码错误'
+        }
+    } else if (!status){
+        data = {
+            code: -1,
+            msg: '您的账户已被停用，请联系管理员！'
         }
     }
     ctx.rest(data)
