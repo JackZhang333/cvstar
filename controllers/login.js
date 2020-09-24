@@ -1,5 +1,47 @@
 const bcrypt = require('bcryptjs')
 const User = require('../services/users')
+const Staff = require('../services/staff')
+
+//管理员登录
+const staffLogin = async(ctx,next)=>{
+    let { request,response } = ctx
+    let {phone,password,verifyImage} = request.body
+    let data = {}
+    let imageVerified
+    if(ctx.session.imageCode){
+        imageVerified= ctx.session.imageCode == verifyImage.toLocaleUpperCase()
+    }else {
+        imageVerified =true
+    }
+    const staffInfos = await Staff.getStaff(phone)
+    let isRight = false
+    if(staffInfos){
+        isRight = staffInfos.password == password
+    }
+    if (isRight && imageVerified) {
+
+        data = {
+            code: 200,
+            msg: '恭喜你，登录成功！',
+            token: userInfos.id,
+            userInfos: userInfos
+
+        }
+    } else if (!imageVerified) {
+        data = {
+            code: -1,
+            msg: '图片验证码错误'
+        }
+    } else if (!isRight) {
+        data = {
+            code: -1,
+            msg: '用户名或密码错误'
+        }
+    }
+    ctx.rest(data)
+    await next()
+
+}
 
 const toLogin = async (ctx, next) => {
     let { request, response } = ctx
@@ -78,4 +120,5 @@ module.exports = {
 
     'GET /api/login': toLogin,
     'GET /api/login/verify_image':toVerifyImage,
+    'POST /api/staffLogin': staffLogin,
 }
