@@ -1,5 +1,5 @@
 let db = require('../db')
-module.exports = db.defineModel('product', {
+module.exports = db.defineModel('cloudProduct', {
     pic: db.STRING(100),
     productName: db.STRING(100),
     spec: db.STRING(100),

@@ -1,14 +1,14 @@
-const {cloudProduct} = require('../model')
+const {cloudProducts} = require('../model')
 
 //新增云商品
 module.exports.addCloudProduct = async(product)=>{
-    await cloudProduct.create(product)
+    await cloudProducts.create(product)
     console.log('新增了一个云商品:'+product.productName)
 }
 
 //删除一个云商品
 module.exports.removeCloudProduct = async(id)=>{
-    await cloudProduct.destroy({
+    await cloudProducts.destroy({
         where:{
             id
         }
@@ -18,7 +18,7 @@ module.exports.removeCloudProduct = async(id)=>{
 //编辑一个云商品
 module.exports.editCloudProduct = async(product)=>{
   let {pic,productName,spec,barCode,sPrice,categary,pPrice} =product
-    await cloudProduct.update({pic,productName,spec,barCode,sPrice,categary,pPrice},{
+    await cloudProducts.update({pic,productName,spec,barCode,sPrice,categary,pPrice},{
         where:{
             id:product.id
         }
@@ -26,7 +26,7 @@ module.exports.editCloudProduct = async(product)=>{
 }
 //查找一个云商品
 module.exports.getCloudProduct = async(barCode)=>{
-    let result = await cloudProduct.findOne({
+    let result = await cloudProducts.findOne({
         where:{
             barCode
         }
@@ -35,7 +35,7 @@ module.exports.getCloudProduct = async(barCode)=>{
 }
 //查找所有的云商品
 module.exports.getAllCloudProducts = async()=>{
-    let products = await cloudProduct.findAll({
+    let products = await cloudProducts.findAll({
       order:[['createdAt','DESC']],
     })
     return products
