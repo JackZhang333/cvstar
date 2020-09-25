@@ -1,8 +1,22 @@
 const products = require('../services/products')
+const Users = require('../services/users')
 const fs = require('fs')
 const path = require('path')
 //配置的图片上传地址，区别开发和生产环境
 const env =require('../env')
+//获取所有用户的商品数据
+const getAllProducts = async(ctx,next) =>{
+    const users = await Users.getUsers()
+    const allProducts = await Promise.all(
+        users.map(async v=>{
+            return await products.getProducts(v.id,v.userName)
+        })
+    )
+    // console.log(allProducts)
+    ctx.rest(allProducts)
+    await next()
+}
+//获取某个用户的商品数据
 const getProducts = async (ctx, next) => {
     const {userId} = ctx.request.query
     const data = await products.getProducts(userId)
@@ -80,4 +94,5 @@ module.exports = {
     'POST /api/addProduct': addProduct,
     'POST /api/removeProduct': removeProduct,
     'POST /api/updateProduct': updateProduct,
+    'GET /api/getAllProducts':getAllProducts,
 }

@@ -1,13 +1,22 @@
 const {product} = require('../model')
 //传入用户的id，获取用户的商品库
-module.exports.getProducts = async (userId)=>{
+module.exports.getProducts = async (userId,userName)=>{
   const products = await product.findAll({
     order:[['createdAt','DESC']],
     where:{
       userId
     }
   })
-  return products
+  if(userName&&products){
+    
+    return products.map(v=>{
+      let {barCode,spec,pic,stock,name,price,categary,pPrice,id} = v
+      return {barCode,spec,pic,stock,name,price,categary,pPrice,userName,id}
+    })
+  }else {
+    return products
+  }
+  
 }
 //增加一个商品
 module.exports.addProduct = async (data)=>{
