@@ -2,6 +2,12 @@ const products = require('../services/products')
 const Users = require('../services/users')
 const fs = require('fs')
 const path = require('path')
+let uuid = require('uuid')
+
+//为图片生成随机的名称
+function generateId(){
+    return uuid.v4()
+}
 //配置的图片上传地址，区别开发和生产环境
 const env =require('../env')
 //获取所有用户的商品数据
@@ -46,7 +52,7 @@ const uploadProduct = function (ctx, data) {
             }
         })
     }
-    const picName = data.barCode
+    const picName = generateId()
     const imgPath = rpath + '/public/' + picName+'.jpeg'
     //把假的图片地址存到数据库，生产环境需要把图片上传到文件服务器，在返回地址给数据库
     const picPath = env + picName +'.jpeg'
@@ -54,11 +60,15 @@ const uploadProduct = function (ctx, data) {
     //接受传递过来的base64字符串
     const imgData = data.pic
     //如果不是base64说明没有编辑图片，所以pic的值还是地址
-    if (imgData != picPath) {
+    if (imgData.startsWith('data:image')) {
         //如果不等于拼接的路径说明是初次上传或者已经编辑过图片，那么就要存在服务器上
         storePic(imgData)
+        return { ...data, pic: picPath }
+    }else {
+        //如果不是base64说明是编辑图片或者是云库里的图片
+        return data
     }
-    return { ...data, pic: picPath }
+    
 }
 const addProduct = async (ctx, next) => {
     const data = ctx.request.body

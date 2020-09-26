@@ -8,6 +8,7 @@ module.exports.addCloudProduct = async(product)=>{
 
 //删除一个云商品
 module.exports.removeCloudProduct = async(id)=>{
+    // console.log('要删除的商品id',id)
     await cloudProducts.destroy({
         where:{
             id
@@ -20,12 +21,14 @@ module.exports.editCloudProduct = async(product)=>{
   let {pic,productName,spec,barCode,sPrice,categary,pPrice} =product
     await cloudProducts.update({pic,productName,spec,barCode,sPrice,categary,pPrice},{
         where:{
-            id:product.id
+            barCode
         }
     })
+    // console.log('编辑成功了一个云商品：',product)
 }
 //查找一个云商品
 module.exports.getCloudProduct = async(barCode)=>{
+    // console.log(barCode)
     let result = await cloudProducts.findOne({
         where:{
             barCode
