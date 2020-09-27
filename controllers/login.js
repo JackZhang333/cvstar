@@ -9,6 +9,7 @@ const staffLogin = async(ctx,next)=>{
     let data = {}
     let imageVerified
     if(ctx.session.imageCode){
+        console.log('session里的验证码:'+ctx.session.imageCode,'接受到的验证码：'+verifyImage)
         imageVerified= ctx.session.imageCode == verifyImage.toLocaleUpperCase()
     }else {
         imageVerified =true
