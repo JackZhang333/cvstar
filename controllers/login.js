@@ -9,7 +9,7 @@ const staffLogin = async(ctx,next)=>{
     let data = {}
     let imageVerified
     if(ctx.session.imageCode){
-        console.log('session里的验证码:'+ctx.session.imageCode,'接受到的验证码：'+verifyImage)
+        // console.log('session里的验证码:'+ctx.session.imageCode,'接受到的验证码：'+verifyImage)
         imageVerified= ctx.session.imageCode == verifyImage.toLocaleUpperCase()
     }else {
         imageVerified =true
@@ -116,7 +116,7 @@ const toVerifyImage = async (ctx, next) => {
     })
     //拿到文本值存入session
     ctx.session.imageCode = captcha.text.toLocaleUpperCase() 
-    console.log('存到session里的值:'+captcha.text.toLocaleUpperCase() )
+    // console.log('存到session里的值:'+captcha.text.toLocaleUpperCase() )
     //尝试使用cookies的方式
     // ctx.cookies.set('imageCode',captcha.text.toLocaleUpperCase(),{httpOnly:true})
     //把svg格式的数据返回给客户端
