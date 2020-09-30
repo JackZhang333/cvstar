@@ -37,9 +37,12 @@ module.exports.getCloudProduct = async(barCode)=>{
     return result
 }
 //查找所有的云商品
-module.exports.getAllCloudProducts = async()=>{
-    let products = await cloudProducts.findAll({
+module.exports.getAllCloudProducts = async(offSet,limit)=>{
+    // console.log('请求查询数据的偏移：'+offSet)
+    let products = await cloudProducts.findAndCountAll({
       order:[['createdAt','DESC']],
+      'limit':limit,
+      'offset':offSet
     })
     return products
 }

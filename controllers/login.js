@@ -48,6 +48,7 @@ const toLogin = async (ctx, next) => {
     let { request, response } = ctx
     //从客户端拿到数据
     let { name, password, verifyImage } = request.query
+    // console.log(request.query)
     // console.log(name, password, verifyImage)
     // console.log(request.query)
     let data = {}

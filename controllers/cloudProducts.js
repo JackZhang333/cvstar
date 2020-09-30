@@ -1,7 +1,6 @@
 const path = require('path')
 const env = require('../env')
 const fs = require('fs')
-
 const CloudProduct = require('../services/cloudProducts')
 const rpath = path.resolve('.')
 
@@ -62,7 +61,11 @@ const getCloudProduct = async (ctx, next) => {
 }
 //查找所有云商品（管理系统）
 const getAllCloudProducts = async (ctx, next) => {
-    const products = await CloudProduct.getAllCloudProducts()
+    
+   let {offSet,limit}= ctx.request.body
+    // console.log(ctx.request.query)
+    // console.log('请求携带的参数：',offSet)
+    const products = await CloudProduct.getAllCloudProducts(offSet,limit)
     if (products) {
         ctx.rest({ code: 1, msg: '成功获取数据', products })
     } else {
@@ -111,6 +114,6 @@ module.exports = {
     'POST /api/removeCloudProduct': removeCloudProduct,
     'POST /api/editCloudProduct': editCloudProduct,
     'POST /api/getCloudProduct': getCloudProduct,
-    'GET /api/getAllCloudProducts': getAllCloudProducts,
+    'POST /api/getAllCloudProducts': getAllCloudProducts,
     'POST /api/uploadPic': uploadPic,
 }
