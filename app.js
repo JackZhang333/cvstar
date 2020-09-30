@@ -27,7 +27,7 @@ app.use(async(ctx,next)=>{
     
     if(/^\/api/.test(request.path)){
         if(request.path.startsWith('/api/uploadPic')||request.path.startsWith('/api/staffLogin')||request.path.startsWith('/api/login/')||request.path.startsWith('/api/register')||request.header.token){
-            console.log(request.path)
+            // console.log(request.path)
             await next()
         }else {
             // console.log(request.path)
